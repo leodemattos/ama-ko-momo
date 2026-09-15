@@ -1,0 +1,814 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Ama Ko Momo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,440;0,9..144,560;0,9..144,650;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --bg: #F1E3C3;
+    --surface: #FBF5E6;
+    --surface-2: #F6ECD3;
+    --ink: #241A0F;
+    --ink-soft: #5C4B37;
+    --ink-faint: #8A7960;
+    --crimson: #86232E;
+    --crimson-deep: #631923;
+    --crimson-tint: #F3DEDE;
+    --saffron: #C6912B;
+    --saffron-tint: #F3E4BE;
+    --pine: #3C5A40;
+    --pine-tint: #E1E8DD;
+    --sky: #45628C;
+    --line: rgba(36,26,15,0.16);
+    --line-soft: rgba(36,26,15,0.09);
+    --shadow: 0 18px 40px -22px rgba(36,20,10,0.45);
+
+    --font-display: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+    --font-body: "Work Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+    --fs-2xs: 0.6875rem;
+    --fs-xs: 0.8125rem;
+    --fs-sm: 0.9375rem;
+    --fs-base: 1.0625rem;
+    --fs-md: 1.3rem;
+    --fs-lg: clamp(1.6rem, 1.3rem + 1.1vw, 2.2rem);
+    --fs-xl: clamp(2.3rem, 1.7rem + 2.4vw, 3.6rem);
+    --fs-2xl: clamp(2.8rem, 1.9rem + 3.6vw, 4.8rem);
+
+    --radius-sm: 4px;
+    --radius-md: 10px;
+    --radius-lg: 22px;
+    --maxw: 1180px;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #17110B;
+      --surface: #221A10;
+      --surface-2: #2B2114;
+      --ink: #F3E7CC;
+      --ink-soft: #CBB99B;
+      --ink-faint: #93826A;
+      --crimson: #E2596A;
+      --crimson-deep: #F0879370;
+      --crimson-tint: #3A1E20;
+      --saffron: #E6B24E;
+      --saffron-tint: #3A2E14;
+      --pine: #86BC8B;
+      --pine-tint: #1E2B1F;
+      --sky: #7FA3D6;
+      --line: rgba(243,231,204,0.18);
+      --line-soft: rgba(243,231,204,0.09);
+      --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #17110B;
+    --surface: #221A10;
+    --surface-2: #2B2114;
+    --ink: #F3E7CC;
+    --ink-soft: #CBB99B;
+    --ink-faint: #93826A;
+    --crimson: #E2596A;
+    --crimson-deep: #F0879370;
+    --crimson-tint: #3A1E20;
+    --saffron: #E6B24E;
+    --saffron-tint: #3A2E14;
+    --pine: #86BC8B;
+    --pine-tint: #1E2B1F;
+    --sky: #7FA3D6;
+    --line: rgba(243,231,204,0.18);
+    --line-soft: rgba(243,231,204,0.09);
+    --shadow: 0 18px 40px -20px rgba(0,0,0,0.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:var(--fs-base);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--font-display);color:var(--ink);text-wrap:balance;margin:0;}
+  p{margin:0;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  ::selection{background:var(--crimson);color:var(--surface);}
+  :focus-visible{outline:2px solid var(--crimson);outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:clamp(1.1rem,4vw,2.75rem);}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:var(--fs-2xs);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--crimson);
+    font-weight:600;
+  }
+  .mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums;}
+
+  /* momo pleat mark, reused as a section motif */
+  .momo-mark{width:1.15em;height:1.15em;flex:none;color:var(--crimson);}
+
+  /* ---------- prayer-flag rule ---------- */
+  .flag-rule{
+    height:5px;
+    background:repeating-linear-gradient(
+      90deg,
+      var(--sky) 0 8%, var(--surface) 8% 16%,
+      var(--crimson) 16% 24%, var(--pine) 24% 32%,
+      var(--saffron) 32% 40%, var(--sky) 40% 48%,
+      var(--surface) 48% 56%, var(--crimson) 56% 64%,
+      var(--pine) 64% 72%, var(--saffron) 72% 80%,
+      var(--sky) 80% 88%, var(--surface) 88% 96%,
+      var(--crimson) 96% 104%
+    );
+    background-size:220px 100%;
+  }
+
+  /* ---------- header ---------- */
+  .site-header{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--line);}
+  .header-inner{
+    max-width:var(--maxw);margin:0 auto;padding:0.9rem clamp(1.1rem,4vw,2.75rem);
+    display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:baseline;gap:.55rem;cursor:pointer;background:none;border:none;padding:0;}
+  .brand .mark{font-family:var(--font-display);font-weight:650;font-style:italic;font-size:1.5rem;letter-spacing:.01em;}
+  .brand .sub{font-family:var(--font-mono);font-size:var(--fs-2xs);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);}
+
+  .tabs{display:flex;gap:.3rem;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:.28rem;overflow-x:auto;scrollbar-width:none;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tabs button{
+    border:none;background:transparent;color:var(--ink-soft);
+    font-size:var(--fs-xs);font-weight:600;letter-spacing:.02em;
+    padding:.5rem 1rem;border-radius:999px;cursor:pointer;white-space:nowrap;
+    transition:background .2s ease, color .2s ease;
+  }
+  .tabs button[aria-selected="true"]{background:var(--crimson);color:#FBF1E8;}
+  .tabs button:hover:not([aria-selected="true"]){color:var(--ink);background:var(--line-soft);}
+
+  .header-actions{display:flex;align-items:center;gap:.6rem;margin-left:auto;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.45rem;
+    font-size:var(--fs-xs);font-weight:600;letter-spacing:.01em;
+    padding:.62rem 1.15rem;border-radius:999px;border:1px solid transparent;
+    cursor:pointer;text-decoration:none;transition:transform .15s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--crimson);color:#FBF1E8;box-shadow:var(--shadow);}
+  .btn-primary:hover{background:var(--crimson-deep);}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink);}
+  .btn-ghost:hover{background:var(--surface-2);}
+  .btn svg{width:1em;height:1em;}
+
+  /* ---------- panels ---------- */
+  main{display:block;}
+  section[data-panel]{animation:rise .5s ease both;}
+  @keyframes rise{from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion: reduce){
+    section[data-panel]{animation:none;}
+    .steam path{animation:none !important;}
+  }
+
+  /* ===== HOME ===== */
+  .hero{
+    max-width:var(--maxw);margin:0 auto;padding:clamp(2.4rem,6vw,4.5rem) clamp(1.1rem,4vw,2.75rem) 2.5rem;
+    display:grid;grid-template-columns:1.2fr 0.9fr;gap:clamp(2rem,5vw,4rem);align-items:center;
+  }
+  .hero h1{font-size:var(--fs-2xl);font-weight:650;line-height:1.02;margin:.6rem 0 1.1rem;}
+  .hero h1 em{font-style:italic;color:var(--crimson);}
+  .hero .lede{max-width:46ch;color:var(--ink-soft);font-size:var(--fs-md);line-height:1.5;}
+  .cta-row{display:flex;gap:.75rem;margin-top:1.7rem;flex-wrap:wrap;}
+  .stat-row{
+    display:flex;gap:1.6rem;margin-top:2.1rem;padding-top:1.4rem;border-top:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .stat{display:flex;flex-direction:column;gap:.2rem;}
+  .stat .num{font-family:var(--font-mono);font-weight:600;font-size:var(--fs-md);}
+  .stat .lbl{font-size:var(--fs-2xs);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);}
+  .stars{display:inline-flex;gap:.12em;color:var(--saffron);}
+  .stars svg{width:1em;height:1em;}
+
+  .hero-art{display:flex;justify-content:center;}
+  .badge-illustration{width:min(360px,100%);height:auto;}
+
+  /* ===== ABOUT ===== */
+  .about{
+    max-width:var(--maxw);margin:0 auto;padding:2.5rem clamp(1.1rem,4vw,2.75rem) 3rem;
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:clamp(2rem,5vw,4rem);
+    border-top:1px solid var(--line);
+  }
+  .about h2{font-size:var(--fs-lg);font-weight:560;margin-bottom:.9rem;}
+  .about p{color:var(--ink-soft);max-width:52ch;}
+  .about p + p{margin-top:.85rem;}
+  .fact-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1rem;}
+  .fact-list li{display:flex;gap:.75rem;align-items:flex-start;font-size:var(--fs-sm);color:var(--ink-soft);}
+  .fact-list strong{display:block;color:var(--ink);font-weight:600;font-size:var(--fs-sm);}
+
+  /* ===== SIGNATURE PREVIEW ===== */
+  .signature{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.1rem,4vw,2.75rem) 3.5rem;}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;}
+  .section-head h2{font-size:var(--fs-lg);font-weight:560;}
+  .link-arrow{font-size:var(--fs-xs);font-weight:600;color:var(--crimson);text-decoration:none;white-space:nowrap;}
+  .link-arrow:hover{text-decoration:underline;}
+  .dish-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;}
+  .dish-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:1.4rem 1.3rem;display:flex;flex-direction:column;gap:.55rem;
+  }
+  .dish-card .row{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;}
+  .dish-card h3{font-size:var(--fs-md);font-weight:560;}
+  .dish-card .price{font-family:var(--font-mono);color:var(--crimson);font-weight:600;white-space:nowrap;}
+  .dish-card p{color:var(--ink-soft);font-size:var(--fs-sm);}
+
+  /* ===== VISIT STRIP ===== */
+  .visit-strip{
+    max-width:var(--maxw);margin:0 auto 4rem;padding:1.6rem clamp(1.1rem,4vw,2.75rem);
+    display:flex;flex-wrap:wrap;gap:1.6rem;justify-content:space-between;align-items:center;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-lg);
+    margin-inline:clamp(1.1rem,4vw,2.75rem);
+  }
+  .visit-item{display:flex;gap:.6rem;align-items:center;font-size:var(--fs-sm);}
+  .visit-item svg{width:1.1em;height:1.1em;color:var(--crimson);flex:none;}
+  .visit-item .mono{font-size:var(--fs-xs);}
+
+  /* ===== MENU ===== */
+  .menu-panel{max-width:960px;margin:0 auto;padding:2.6rem clamp(1.1rem,4vw,2.75rem) 4.5rem;}
+  .menu-intro h2{font-size:var(--fs-xl);font-weight:650;}
+  .menu-intro p{color:var(--ink-soft);max-width:56ch;margin-top:.8rem;}
+  .menu-note{
+    margin-top:1.1rem;font-family:var(--font-mono);font-size:var(--fs-2xs);color:var(--ink-faint);
+    border-left:2px solid var(--saffron);padding-left:.7rem;
+  }
+  .menu-group{margin-top:2.6rem;}
+  .menu-group-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.3rem;}
+  .menu-group-head h3{font-size:var(--fs-md);font-weight:560;}
+  .menu-group-desc{color:var(--ink-faint);font-size:var(--fs-xs);margin:.15rem 0 1.1rem 1.75rem;}
+  .menu-rows{display:flex;flex-direction:column;}
+  .menu-row{
+    display:flex;align-items:baseline;gap:.6rem;padding:.85rem 0;border-top:1px solid var(--line-soft);
+  }
+  .menu-row:first-child{border-top:none;}
+  .menu-row .name{font-weight:600;font-size:var(--fs-sm);flex:none;}
+  .menu-row .desc{color:var(--ink-faint);font-size:var(--fs-xs);flex:none;}
+  .menu-row .leader{flex:1;border-bottom:1px dotted var(--line);margin:0 .3rem 0.25rem;min-width:1rem;}
+  .menu-row .price{font-family:var(--font-mono);font-weight:600;color:var(--crimson);flex:none;font-size:var(--fs-sm);}
+
+  /* ===== REVIEWS ===== */
+  .reviews-panel{max-width:var(--maxw);margin:0 auto;padding:2.6rem clamp(1.1rem,4vw,2.75rem) 4.5rem;}
+  .reviews-head{display:flex;flex-wrap:wrap;gap:2.5rem;align-items:flex-end;justify-content:space-between;margin-bottom:2.2rem;}
+  .rating-block{display:flex;align-items:center;gap:1.1rem;}
+  .rating-block .big{font-family:var(--font-display);font-weight:650;font-size:3.4rem;line-height:1;}
+  .rating-meta{display:flex;flex-direction:column;gap:.25rem;}
+  .rating-meta .mono{font-size:var(--fs-xs);color:var(--ink-faint);}
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;}
+  .review-card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:1.5rem;display:flex;flex-direction:column;gap:1rem;
+  }
+  .review-card .stars{margin-bottom:-.3rem;}
+  .review-card q{font-style:italic;font-family:var(--font-display);font-size:var(--fs-md);line-height:1.4;quotes:none;color:var(--ink);}
+  .review-meta{display:flex;justify-content:space-between;align-items:baseline;font-size:var(--fs-xs);color:var(--ink-faint);border-top:1px solid var(--line-soft);padding-top:.8rem;}
+  .review-meta strong{color:var(--ink-soft);font-weight:600;}
+
+  /* ===== RESERVE ===== */
+  .reserve-panel{max-width:var(--maxw);margin:0 auto;padding:2.6rem clamp(1.1rem,4vw,2.75rem) 4.5rem;
+    display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(2rem,4vw,3.5rem);align-items:start;}
+  .reserve-panel h2{font-size:var(--fs-xl);font-weight:650;margin-bottom:.5rem;}
+  .reserve-panel > div:first-child > p{color:var(--ink-soft);max-width:48ch;margin-bottom:1.8rem;}
+
+  .field{display:flex;flex-direction:column;gap:.35rem;}
+  .field label{font-size:var(--fs-2xs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;}
+  .field input, .field select, .field textarea{
+    font-family:var(--font-body);font-size:var(--fs-sm);color:var(--ink);
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:.7rem .8rem;width:100%;
+  }
+  .field textarea{resize:vertical;min-height:4.5rem;}
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--crimson);}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .reserve-form{display:flex;flex-direction:column;gap:1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:1.8rem;box-shadow:var(--shadow);}
+
+  .stepper{display:flex;align-items:center;gap:.7rem;}
+  .stepper button{
+    width:2.1rem;height:2.1rem;border-radius:50%;border:1px solid var(--line);background:var(--surface-2);
+    font-size:1.1rem;cursor:pointer;color:var(--ink);line-height:1;
+  }
+  .stepper button:hover{background:var(--crimson-tint);border-color:var(--crimson);}
+  .stepper output{font-family:var(--font-mono);font-weight:600;min-width:1.6rem;text-align:center;}
+
+  .submit-row{display:flex;align-items:center;gap:.9rem;margin-top:.4rem;}
+  .submit-row .hint{font-size:var(--fs-2xs);color:var(--ink-faint);}
+
+  .success-panel{
+    display:none;flex-direction:column;gap:.9rem;align-items:flex-start;
+    background:var(--pine-tint);border:1px solid var(--pine);border-radius:var(--radius-lg);
+    padding:2rem;
+  }
+  .success-panel.show{display:flex;}
+  .reserve-form.hide{display:none;}
+  .success-panel h3{font-size:var(--fs-md);color:var(--pine);font-weight:600;}
+  .success-panel p{color:var(--ink-soft);font-size:var(--fs-sm);}
+
+  .reserve-aside{display:flex;flex-direction:column;gap:1.1rem;}
+  .call-card{
+    background:var(--crimson);color:#FBF1E8;border-radius:var(--radius-lg);padding:1.7rem;
+    display:flex;flex-direction:column;gap:.5rem;
+  }
+  .call-card .lbl{font-size:var(--fs-2xs);letter-spacing:.1em;text-transform:uppercase;opacity:.85;}
+  .call-card a{font-family:var(--font-mono);font-size:1.5rem;font-weight:600;color:inherit;text-decoration:none;}
+  .call-card .btn-ghost{margin-top:.5rem;align-self:flex-start;border-color:rgba(251,241,232,.5);color:#FBF1E8;}
+  .call-card .btn-ghost:hover{background:rgba(251,241,232,.15);}
+
+  .info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:1.6rem 1.7rem;}
+  .hours-table{width:100%;border-collapse:collapse;margin-top:.6rem;}
+  .hours-table td{padding:.35rem 0;font-size:var(--fs-sm);}
+  .hours-table td:first-child{color:var(--ink-soft);}
+  .hours-table td:last-child{text-align:right;font-family:var(--font-mono);font-size:var(--fs-xs);}
+  .policy-note{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line-soft);font-size:var(--fs-xs);color:var(--ink-faint);}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);}
+  .footer-inner{
+    max-width:var(--maxw);margin:0 auto;padding:2.2rem clamp(1.1rem,4vw,2.75rem);
+    display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;
+  }
+  .footer-inner .mark{font-family:var(--font-display);font-style:italic;font-weight:600;}
+  .footer-meta{display:flex;flex-wrap:wrap;gap:1.4rem;font-size:var(--fs-xs);color:var(--ink-faint);}
+  .concept-note{
+    max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.1rem,4vw,2.75rem) 1.8rem;
+    font-family:var(--font-mono);font-size:var(--fs-2xs);color:var(--ink-faint);
+  }
+
+  /* ===== responsive ===== */
+  @media (max-width:880px){
+    .hero{grid-template-columns:1fr;}
+    .hero-art{order:-1;max-width:220px;margin:0 auto;}
+    .about{grid-template-columns:1fr;}
+    .dish-grid{grid-template-columns:1fr 1fr;}
+    .review-grid{grid-template-columns:1fr;}
+    .reserve-panel{grid-template-columns:1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    .menu-row{flex-wrap:wrap;}
+    .menu-row .desc{width:100%;order:3;}
+  }
+  @media (max-width:560px){
+    .dish-grid{grid-template-columns:1fr;}
+    .header-actions .btn-ghost span{display:none;}
+  }
+</style>
+
+<header class="site-header">
+  <div class="header-inner">
+    <button class="brand" data-goto="home" aria-label="Ama Ko Momo, go to home">
+      <span class="mark">Ama Ko Momo</span>
+      <span class="sub">Nepali momo house</span>
+    </button>
+    <nav class="tabs" role="tablist" aria-label="Site sections">
+      <button role="tab" aria-selected="true" data-target="home">Home</button>
+      <button role="tab" aria-selected="false" data-target="menu">Menu</button>
+      <button role="tab" aria-selected="false" data-target="reviews">Reviews</button>
+      <button role="tab" aria-selected="false" data-target="reserve">Reserve</button>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost" href="tel:14166377040">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c0-.6.4-1 1-1h3l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v3c0 .6-.4 1-1 1C10 19 4 13 4 5Z"/></svg>
+        <span>(416) 637-7040</span>
+      </a>
+      <button class="btn btn-primary" data-goto="reserve">Reserve a table</button>
+    </div>
+  </div>
+  <div class="flag-rule" aria-hidden="true"></div>
+</header>
+
+<main>
+
+  <!-- ================= HOME ================= -->
+  <section data-panel="home" id="panel-home">
+    <div class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Hand-pleated in Parkdale, Toronto</p>
+        <h1>Momo, the way<br><em>ama</em> makes it.</h1>
+        <p class="lede">In Nepali, <em style="color:var(--ink);">ama ko momo</em> means &ldquo;mother&rsquo;s momo.&rdquo; Every dumpling on King St&nbsp;W is still pleated by hand, filled to order, and steamed in small batches &mdash; the way it&rsquo;s done at home, not in a factory.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" data-goto="menu">See the menu</button>
+          <button class="btn btn-ghost" data-goto="reserve">Reserve a table</button>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stars" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+            </span>
+            <span class="num mono">4.8 / 5</span>
+            <span class="lbl">313 Google reviews</span>
+          </div>
+          <div class="stat">
+            <span class="num mono">Tue&ndash;Sun</span>
+            <span class="lbl">11:00&ndash;22:00</span>
+          </div>
+          <div class="stat">
+            <span class="num mono">1228 King St&nbsp;W</span>
+            <span class="lbl">Parkdale, Toronto</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <svg class="badge-illustration" viewBox="0 0 400 400" role="img" aria-label="Illustration of a steam basket of momos beneath the Himalaya, ringed with prayer-flag colours">
+          <defs>
+            <clipPath id="badgeClip"><circle cx="200" cy="200" r="186"/></clipPath>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--surface-2)"/>
+              <stop offset="1" stop-color="var(--surface)"/>
+            </linearGradient>
+          </defs>
+
+          <circle cx="200" cy="200" r="192" fill="none" stroke="var(--line)" stroke-width="1"/>
+          <circle cx="200" cy="200" r="182" fill="none" stroke="var(--crimson)" stroke-width="2" stroke-dasharray="1 9" stroke-linecap="round"/>
+
+          <g clip-path="url(#badgeClip)">
+            <circle cx="200" cy="200" r="186" fill="url(#skyGrad)"/>
+            <polygon points="14,270 90,150 150,215 210,120 270,205 330,160 386,270" fill="var(--sky)" opacity="0.28"/>
+            <polygon points="14,290 70,205 140,250 205,170 260,235 340,195 386,290" fill="var(--pine)" opacity="0.35"/>
+            <polygon points="14,240 60,190 90,210 130,150 175,195 205,160 240,200 285,175 330,210 386,235" fill="var(--ink)" opacity="0.16"/>
+
+            <!-- steam -->
+            <g class="steam" stroke="var(--ink-faint)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.55">
+              <path d="M172 165 q-10 -18 0 -34 q10 -16 0 -32" style="animation:steam 4.5s ease-in-out infinite;"/>
+              <path d="M200 160 q10 -16 0 -32 q-10 -16 0 -30" style="animation:steam 4.5s ease-in-out .6s infinite;"/>
+              <path d="M228 165 q-10 -18 0 -34 q10 -16 0 -32" style="animation:steam 4.5s ease-in-out 1.2s infinite;"/>
+            </g>
+
+            <!-- basket -->
+            <g>
+              <ellipse cx="200" cy="232" rx="92" ry="16" fill="var(--surface-2)" stroke="var(--crimson)" stroke-width="2.5"/>
+              <path d="M118 232 L134 300 Q200 316 266 300 L282 232" fill="var(--surface-2)" stroke="var(--crimson)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M132 246 L142 296 M156 252 L163 302 M200 254 L200 306 M244 252 L237 302 M268 246 L258 296" stroke="var(--crimson)" stroke-width="1.6" opacity="0.55"/>
+              <!-- momos peeking over rim -->
+              <g fill="var(--surface)" stroke="var(--ink-soft)" stroke-width="1.6">
+                <path d="M150 224 q14 -20 32 -2 q-4 10 -16 11 q-12 -1 -16 -9z"/>
+                <path d="M186 218 q16 -22 34 -2 q-4 11 -17 12 q-13 -1 -17 -10z"/>
+                <path d="M222 224 q14 -20 32 -2 q-4 10 -16 11 q-12 -1 -16 -9z"/>
+              </g>
+            </g>
+          </g>
+
+          <text x="200" y="358" text-anchor="middle" font-family="var(--font-mono)" font-size="11" letter-spacing="3" fill="var(--ink-faint)">EST. PARKDALE &middot; TORONTO</text>
+        </svg>
+      </div>
+    </div>
+
+    <section class="about">
+      <div>
+        <h2>A family kitchen on King&nbsp;St</h2>
+        <p>Ama Ko Momo started the way most good momo shops do &mdash; with a family recipe, a steamer, and a small storefront. The dough is mixed and rested daily; the fillings are seasoned by hand, never pre-mixed in bulk.</p>
+        <p>You&rsquo;ll find both Nepali-style <em>jhol momo</em> (bathed in a light, spiced soup) and pan-fried Tibetan-style dumplings on the same menu &mdash; alongside sel roti, chowmein, and a short list of home-style sides.</p>
+      </div>
+      <ul class="fact-list">
+        <li>
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-4 0-7 2.7-7 6.6 0 3 2 5 4.2 6.1l.4.9c.25.5.75.5 1 0l.4-.9c2.2-1.1 4.2-3.1 4.2-6.1C19 5.7 16 3 12 3z"/><path d="M6.2 9.4c1.1-.5 2.3-.8 3.4-.9M9.2 6.7c1-.4 1.9-.6 2.8-.6M17.8 9.4c-1.1-.5-2.3-.8-3.4-.9M14.8 6.7c-1-.4-1.9-.6-2.8-.6"/></svg>
+          <span><strong>Pleated by hand</strong>Each momo is closed with roughly 16&ndash;18 folds &mdash; too fine for a machine, so every batch is shaped to order in the back kitchen.</span>
+        </li>
+        <li>
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h16M6 10l1.5 8a2 2 0 0 0 2 1.7h5a2 2 0 0 0 2-1.7L18 10M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+          <span><strong>Steamed in bamboo</strong>Traditional stacked baskets keep the wrapper thin and translucent instead of gummy &mdash; the texture regulars come back for.</span>
+        </li>
+        <li>
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v6M8 6l4 2 4-2M5 12c0 5 3 9 7 10 4-1 7-5 7-10-2 1-5 0-7-2-2 2-5 3-7 2Z"/></svg>
+          <span><strong>Achar made in-house</strong>The tomato-sesame chutney served alongside is blended fresh, with the chili heat adjusted table by table on request.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="signature">
+      <div class="section-head">
+        <h2>Where to start</h2>
+        <a class="link-arrow" href="#" data-goto="menu">Full menu &rarr;</a>
+      </div>
+      <div class="dish-grid">
+        <div class="dish-card">
+          <div class="row"><h3>Chicken Jhol Momo</h3><span class="price mono">$15</span></div>
+          <p>Steamed dumplings served in a light, spiced broth &mdash; the shop&rsquo;s most-ordered dish.</p>
+        </div>
+        <div class="dish-card">
+          <div class="row"><h3>Deep-Fried Momo</h3><span class="price mono">$18</span></div>
+          <p>Crisped to order and tossed in a chili-garlic glaze. Ask for it extra hot.</p>
+        </div>
+        <div class="dish-card">
+          <div class="row"><h3>Sel Roti</h3><span class="price mono">$6</span></div>
+          <p>A ring-shaped, lightly sweet rice-flour doughnut &mdash; a Nepali festival staple, made fresh daily.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="visit-strip">
+      <div class="visit-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-7.2 7-12a7 7 0 1 0-14 0c0 4.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span>1228 King St&nbsp;W, Toronto <span class="mono" style="color:var(--ink-faint);">M6K&nbsp;1G4</span></span>
+      </div>
+      <div class="visit-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <span>Mon 14:00&ndash;21:00 &middot; Tue&ndash;Sun 11:00&ndash;22:00</span>
+      </div>
+      <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=1228+King+St+W+Toronto+ON+M6K+1G4" target="_blank" rel="noopener">Directions</a>
+    </div>
+  </section>
+
+  <!-- ================= MENU ================= -->
+  <section data-panel="menu" id="panel-menu" hidden>
+    <div class="menu-panel">
+      <div class="menu-intro">
+        <p class="eyebrow">The menu</p>
+        <h2>Folded to order</h2>
+        <p>A short, focused list built around momo &mdash; steamed, soup-bathed, and fried &mdash; plus the noodles and small plates regulars pair them with.</p>
+        <p class="menu-note">Prices shown are current at time of writing and may change. Call (416) 637-7040 to confirm before large orders.</p>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-head">
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-4 0-7 2.7-7 6.6 0 3 2 5 4.2 6.1l.4.9c.25.5.75.5 1 0l.4-.9c2.2-1.1 4.2-3.1 4.2-6.1C19 5.7 16 3 12 3z"/></svg>
+          <h3>Steamed Momo</h3>
+        </div>
+        <p class="menu-group-desc">8 pieces, served with house tomato-sesame achar</p>
+        <div class="menu-rows">
+          <div class="menu-row"><span class="name">Chicken</span><span class="desc">ground chicken, ginger, spring onion</span><span class="leader"></span><span class="price">$14</span></div>
+          <div class="menu-row"><span class="name">Vegetable &amp; Paneer</span><span class="desc">cottage cheese, cabbage, carrot</span><span class="leader"></span><span class="price">$14</span></div>
+          <div class="menu-row"><span class="name">Buff (Water Buffalo)</span><span class="desc">a Nepali classic filling</span><span class="leader"></span><span class="price">$15</span></div>
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-head">
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h16M6 10l1.5 8a2 2 0 0 0 2 1.7h5a2 2 0 0 0 2-1.7L18 10M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+          <h3>Jhol (Soup) Momo</h3>
+        </div>
+        <p class="menu-group-desc">steamed momo served bathed in a light, tangy-spiced broth</p>
+        <div class="menu-rows">
+          <div class="menu-row"><span class="name">Chicken Jhol Momo</span><span class="desc">the house favourite</span><span class="leader"></span><span class="price">$15</span></div>
+          <div class="menu-row"><span class="name">Buff Jhol Momo</span><span class="desc">deeper, richer broth</span><span class="leader"></span><span class="price">$16</span></div>
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-head">
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c3 2 4 4.5 4 7a4 4 0 1 1-8 0c0-1 .3-1.8.8-2.6.3.9 1 1.4 1.7 1 .3-1.6 0-3.4 1.5-5.4Z"/><path d="M6 20c1.5-2 4-2 6-2s4.5 0 6 2"/></svg>
+          <h3>Crispy &amp; Fried</h3>
+        </div>
+        <p class="menu-group-desc">pan-seared or deep-fried, finished with a chili-garlic glaze</p>
+        <div class="menu-rows">
+          <div class="menu-row"><span class="name">Deep-Fried Nepali Momo, Chicken</span><span class="desc">crisp shell, juicy centre</span><span class="leader"></span><span class="price">$18</span></div>
+          <div class="menu-row"><span class="name">Chili Momo</span><span class="desc">tossed wok-style with peppers &amp; onion</span><span class="leader"></span><span class="price">$16</span></div>
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-head">
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M5 6l2 13h10l2-13M9 6V4h6v2"/></svg>
+          <h3>Noodles &amp; Thakali Sets</h3>
+        </div>
+        <p class="menu-group-desc">heartier plates for the table</p>
+        <div class="menu-rows">
+          <div class="menu-row"><span class="name">Chicken Chowmein</span><span class="desc">wok-tossed noodles, seasonal veg</span><span class="leader"></span><span class="price">$15.99</span></div>
+          <div class="menu-row"><span class="name">Mutton Thakali Set</span><span class="desc">rice, lentil, mutton curry, greens, pickle</span><span class="leader"></span><span class="price">$19</span></div>
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <div class="menu-group-head">
+          <svg class="momo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          <h3>Small Bites &amp; Sides</h3>
+        </div>
+        <p class="menu-group-desc">order alongside anything on the menu</p>
+        <div class="menu-rows">
+          <div class="menu-row"><span class="name">Sel Roti</span><span class="desc">sweet rice-flour ring doughnut</span><span class="leader"></span><span class="price">$6</span></div>
+          <div class="menu-row"><span class="name">Laphing</span><span class="desc">cold mung-bean noodle, chili &amp; vinegar</span><span class="leader"></span><span class="price">$9</span></div>
+          <div class="menu-row"><span class="name">Sukuti</span><span class="desc">dried, spiced meat, pan-tossed</span><span class="leader"></span><span class="price">$12</span></div>
+          <div class="menu-row"><span class="name">Gundruk Achar</span><span class="desc">fermented leafy-green pickle</span><span class="leader"></span><span class="price">$6</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REVIEWS ================= -->
+  <section data-panel="reviews" id="panel-reviews" hidden>
+    <div class="reviews-panel">
+      <div class="reviews-head">
+        <div class="rating-block">
+          <span class="big">4.8</span>
+          <div class="rating-meta">
+            <span class="stars" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+            </span>
+            <span class="mono">313 ratings on Google</span>
+          </div>
+        </div>
+        <a class="btn btn-ghost" href="https://www.google.com/maps/place/Ama+Ko+Momo/@43.6389367,-79.4284298,17z/data=!4m6!3m5!1s0x882b35005c1f3607:0x44a5d31ad86e6541!8m2!3d43.6389367!4d-79.4284298!16s%2Fg%2F11y3vh8bnz" target="_blank" rel="noopener">Read all reviews on Google &rarr;</a>
+      </div>
+
+      <div class="review-grid">
+        <article class="review-card">
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+          </span>
+          <q>It had been a while since we&rsquo;d had truly authentic Nepali food &mdash; the buff jhol momo and mutton thakali finally tasted like home.</q>
+          <div class="review-meta"><span><strong>Prabin P.</strong> &middot; Local Guide</span><span>3 months ago</span></div>
+        </article>
+        <article class="review-card">
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+          </span>
+          <q>We ordered half the menu &mdash; jhol momo, sel roti, laphing &mdash; and every single dish delivered on flavour.</q>
+          <div class="review-meta"><span><strong>Mihir P.</strong> &middot; Local Guide</span><span>3 months ago</span></div>
+        </article>
+        <article class="review-card">
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.3L10 15l-5.6 3.1 1.4-6.3L1 8.5l6.4-.6z"/></svg>
+          </span>
+          <q>Probably the best momos I&rsquo;ve had in this city &mdash; fresh, juicy, and fairly priced for the portion you get.</q>
+          <div class="review-meta"><span><strong>Nafiz I.</strong> &middot; 296 reviews</span><span>7 months ago</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESERVE ================= -->
+  <section data-panel="reserve" id="panel-reserve" hidden>
+    <div class="reserve-panel">
+      <div>
+        <p class="eyebrow">Book a table</p>
+        <h2>Reserve your spot</h2>
+        <p>Tables are limited &mdash; send a request and Ama Ko Momo will call or text to confirm. For same-day or large groups, calling directly is fastest.</p>
+
+        <form class="reserve-form" id="reserveForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="rName">Name</label>
+              <input id="rName" name="name" type="text" required placeholder="Full name">
+            </div>
+            <div class="field">
+              <label for="rPhone">Phone</label>
+              <input id="rPhone" name="phone" type="tel" required placeholder="(416) 000-0000">
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="rDate">Date</label>
+              <input id="rDate" name="date" type="date" required>
+            </div>
+            <div class="field">
+              <label for="rTime">Time</label>
+              <select id="rTime" name="time" required>
+                <option value="" disabled selected>Select a time</option>
+                <option>11:30 AM</option><option>12:30 PM</option><option>1:30 PM</option>
+                <option>5:30 PM</option><option>6:30 PM</option><option>7:30 PM</option><option>8:30 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Party size</label>
+            <div class="stepper">
+              <button type="button" id="partyMinus" aria-label="Decrease party size">&minus;</button>
+              <output id="partyOut">2</output>
+              <button type="button" id="partyPlus" aria-label="Increase party size">+</button>
+              <input type="hidden" name="party" id="partyInput" value="2">
+              <span class="mono" style="font-size:var(--fs-2xs);color:var(--ink-faint);">guests</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="rNotes">Notes (optional)</label>
+            <textarea id="rNotes" name="notes" placeholder="Allergies, occasion, seating preference&hellip;"></textarea>
+          </div>
+          <div class="submit-row">
+            <button class="btn btn-primary" type="submit" id="reserveSubmit">Request table</button>
+            <span class="hint">We confirm every request by phone.</span>
+          </div>
+        </form>
+
+        <div class="success-panel" id="successPanel">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--pine)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>
+          <h3>Request sent</h3>
+          <p id="successMsg">Thanks &mdash; Ama Ko Momo will call to confirm shortly.</p>
+          <button class="btn btn-ghost" id="resetForm" type="button">Make another request</button>
+        </div>
+      </div>
+
+      <aside class="reserve-aside">
+        <div class="call-card">
+          <span class="lbl">Prefer to call?</span>
+          <a href="tel:14166377040">(416) 637-7040</a>
+          <span style="font-size:var(--fs-xs);opacity:.9;">Fastest for same-day &amp; groups of 6+</span>
+          <a class="btn btn-ghost" href="https://www.instagram.com/ama_ko_momo/" target="_blank" rel="noopener">@ama_ko_momo</a>
+        </div>
+        <div class="info-card">
+          <p class="eyebrow" style="margin-bottom:.4rem;">Hours</p>
+          <table class="hours-table">
+            <tr><td>Monday</td><td>14:00&ndash;21:00</td></tr>
+            <tr><td>Tue&ndash;Sun</td><td>11:00&ndash;22:00</td></tr>
+          </table>
+          <p class="policy-note">Tables are held 15 minutes past the reservation time. 1228 King St&nbsp;W, Toronto, ON M6K&nbsp;1G4.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="mark">Ama Ko Momo</span>
+    <div class="footer-meta">
+      <span>1228 King St&nbsp;W, Toronto</span>
+      <span class="mono">(416) 637-7040</span>
+      <a href="https://www.instagram.com/ama_ko_momo/" target="_blank" rel="noopener">@ama_ko_momo</a>
+    </div>
+  </div>
+  <p class="concept-note">Concept design prepared as a proposal for Ama Ko Momo &mdash; not the restaurant&rsquo;s official website. Menu, hours and reviews compiled from public listings; please confirm current details by phone.</p>
+</footer>
+
+<style>
+  @keyframes steam{
+    0%{transform:translateY(0);opacity:.15;}
+    30%{opacity:.6;}
+    100%{transform:translateY(-22px);opacity:0;}
+  }
+</style>
+
+<script>
+  (function(){
+    var tabs = document.querySelectorAll('[role="tab"]');
+    var panels = document.querySelectorAll('[data-panel]');
+
+    function activate(target){
+      tabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.target === target ? 'true' : 'false'); });
+      panels.forEach(function(p){ p.hidden = p.getAttribute('data-panel') !== target; });
+      document.querySelector('.site-header').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ activate(t.dataset.target); }); });
+    document.querySelectorAll('[data-goto]').forEach(function(el){
+      el.addEventListener('click', function(e){
+        e.preventDefault();
+        activate(el.dataset.goto);
+      });
+    });
+
+    // party size stepper
+    var partyOut = document.getElementById('partyOut');
+    var partyInput = document.getElementById('partyInput');
+    var count = 2;
+    document.getElementById('partyMinus').addEventListener('click', function(){
+      count = Math.max(1, count - 1);
+      partyOut.textContent = count; partyInput.value = count;
+    });
+    document.getElementById('partyPlus').addEventListener('click', function(){
+      count = Math.min(12, count + 1);
+      partyOut.textContent = count; partyInput.value = count;
+    });
+
+    // reservation form
+    var form = document.getElementById('reserveForm');
+    var success = document.getElementById('successPanel');
+    var successMsg = document.getElementById('successMsg');
+    var submitBtn = document.getElementById('reserveSubmit');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('rName').value.trim() || 'there';
+      var date = document.getElementById('rDate').value;
+      var time = document.getElementById('rTime').value;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      setTimeout(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request table';
+        var when = (date ? new Date(date + 'T00:00:00').toLocaleDateString(undefined,{weekday:'long', month:'long', day:'numeric'}) : 'your requested date');
+        successMsg.textContent = 'Thanks, ' + name + ' — your request for ' + when + (time ? ' at ' + time : '') + ' has been sent. Ama Ko Momo will call to confirm shortly.';
+        form.classList.add('hide');
+        success.classList.add('show');
+      }, 850);
+    });
+
+    document.getElementById('resetForm').addEventListener('click', function(){
+      form.reset();
+      count = 2; partyOut.textContent = 2; partyInput.value = 2;
+      success.classList.remove('show');
+      form.classList.remove('hide');
+    });
+  })();
+</script>
+
+</body></html>
